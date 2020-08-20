@@ -29,7 +29,7 @@ void list_print(struct list_st *list) {
     }
 }
 
-bool is_member(struct list_st *list, char *element) {
+bool list_is_member(struct list_st *list, char *element) {
     int i = 0;
     bool rv = false;
 
@@ -46,7 +46,6 @@ bool is_member(struct list_st *list, char *element) {
 int main(int argc, char **argv) {
     int rv;
     struct list_st list;
-    char str[32];
 
     list_init(&list);
     list_add(&list, "foo");
@@ -55,13 +54,13 @@ int main(int argc, char **argv) {
 
     list_print(&list);
     
-    rv = is_member(&list, "baz");
+    rv = list_is_member(&list, "baz");
     printf("is_member(&list, \"baz\") = %d\n", rv);
 
-    rv = is_member(&list, "goo");
+    rv = list_is_member(&list, "goo");
     printf("is_member(&list, \"goo\") = %d\n", rv);
 
-    rv = is_member(&list, "moo");
+    rv = list_is_member(&list, "moo");
     printf("is_member(&list, \"moo\") = %d\n", rv);
     
     return 0;
