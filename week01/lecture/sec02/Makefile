@@ -1,12 +1,10 @@
-PROGS = cat cp wcount
+PROGS = hello args cat cp wcount 
 
 all : $(PROGS)
 
-%.o : %.c
-	gcc -g -c -o $@ $^
-
-% : %.o
+% : %.c
 	gcc -g -o $@ $^
 
 clean:
 	rm -f $(PROGS) *~
+
