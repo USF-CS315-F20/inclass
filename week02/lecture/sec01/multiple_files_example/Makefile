@@ -1,8 +1,8 @@
-PROGS = member1_array member1_struct
+PROGS = main
 
 all : $(PROGS)
 
-% : %.c
+main : main.c foo.c
 	gcc -g -o $@ $^
 
 clean:

@@ -1,0 +1,33 @@
+This is a basic example of a C program with multiple files.
+
+In general, when you break up a C program into multiple file you put
+related functions into separate .c files. For each .c file you also
+create a .h file. For example:
+
+foo.h
+foo.c
+
+The foo.h will have any data types (enums, structs, etc.),
+macros (#define ...), and function prototypes (int foo(int x, int y);).
+
+You will include foo.h
+
+#include "foo.h"
+
+(Note the quotes "foo.h" means to look in the current directory).
+
+in foo.c and any other .c file that uses functions and datatypes from
+foo.h and foo.c.
+
+So, if main.c uses foo.c functions, it will include foo.h.
+
+A convention that is used to prevent including a .h file more than once
+is to put the following in each .h file:
+
+#ifndef _FOO_H
+#define _FOO_H
+
+/* put foo.h declarations here */
+
+#endif /* _FOO_H */
+

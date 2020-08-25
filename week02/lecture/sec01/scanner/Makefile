@@ -1,4 +1,4 @@
-PROGS = member1_array member1_struct
+PROGS = scan1
 
 all : $(PROGS)
 
