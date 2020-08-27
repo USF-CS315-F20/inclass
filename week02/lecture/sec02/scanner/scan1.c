@@ -15,12 +15,12 @@ symbol ::= '+' | '-' | '*' | '/' | '='
 #define SCAN_INPUT_LEN 8192
 
 enum scan_token_enum {
-                      TK_PLUS, /* + */
+                      TK_PLUS,  /* + */
                       TK_MINUS, /* - */
-                      TK_MULT, /* * */
-                      TK_DIV,  /* / */
-                      TK_EQ,   /* = */
-                      TK_EOT, /* end of text */
+                      TK_MULT,  /* * */
+                      TK_DIV,   /* / */
+                      TK_EQ,    /* = */
+                      TK_EOT,   /* end of text */
 };
 
 char *scan_token_strings[] = {"TK_PLUS", "TK_MINUS", "TK_MULT", "TK_DIV",
