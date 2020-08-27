@@ -1,4 +1,4 @@
-PROGS = scan1
+PROGS = scan1 scan2
 
 all : $(PROGS)
 
