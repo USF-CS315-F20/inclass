@@ -1,9 +1,11 @@
 PROGS = scan1 scan2
 
+CFLAGS = -g
+
 all : $(PROGS)
 
 % : %.c
-	gcc -g -o $@ $^
+	gcc $(CFLAGS) -o $@ $^
 
 clean:
 	rm -f $(PROGS) *~

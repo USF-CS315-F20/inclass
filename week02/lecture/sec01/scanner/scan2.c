@@ -6,8 +6,9 @@ symbol ::= '+' | '-' | '*' | '/' | '='
 integer ::= digit (digit)*
 digit  ::= '0' | '1' | ... | '9'
 
-# ignore
-whitespace ::= ' ' | '\t'
+# Ignore
+
+whitespace ::= (' ' | '\t') (' ' | '\t')*
 
 */
 
@@ -118,7 +119,7 @@ char * scan_token(char *p, char *end, struct scan_token_st *tp) {
         tp->id = TK_MINUS;
         p += 1;
     } else {
-        printf("scan error: invalid char\n");
+        printf("scan error: invalid char (%c)\n", *p);
         exit(-1);
     }
     return p;
@@ -141,16 +142,46 @@ void scan_table_scan(struct scan_table_st *st, char *input, int len) {
     } while(true);
 }
 
+void scan_test_check(char *name, struct scan_table_st *st,
+                     enum scan_token_enum out[], int len)
+{
+    int i;
+    bool pass = true;
+
+    for (i = 0; i < st->len; i++) {
+        if (st->table[i].id != out[i]) {
+            pass = false;
+            break;
+        }
+    }
+
+    if (pass) {
+        printf("%s passed\n", name);
+    } else {
+        printf("%s failed\n", name);
+    }
+}
+
 int main(int argc, char **argv) {
     struct scan_table_st scan_table;
+    /* char input[FILE_LEN]; */
     int len;
     
     char *input = "1 + 2 - 99 + 33";
     len = strnlen(input, SCAN_TEXT_LEN);
+
+    /* len = file_read(argv[1], input); */
     
     scan_table_init(&scan_table);
     scan_table_scan(&scan_table, input, len);
     scan_table_print(&scan_table);
+
+    char *test2_in = "+ - 2000";
+    enum scan_token_enum test2_out[] = {TK_PLUS, TK_MINUS, TK_INTLIT, TK_EOT};
+    scan_table_init(&scan_table);
+    scan_table_scan(&scan_table, test2_in, strnlen(test2_in, SCAN_TEXT_LEN));
+    scan_table_print(&scan_table);
+    scan_test_check("test2", &scan_table, test2_out, 3);
     
     return(0);
 }

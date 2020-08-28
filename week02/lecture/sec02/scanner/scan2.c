@@ -142,17 +142,45 @@ void scan_table_print(struct scan_table_st *st) {
     }
 }    
 
+void scan_test_check(char *name, struct scan_table_st *st,
+                     enum scan_token_enum out[], int len) {
+    int i;
+    bool pass = true;
+
+    for (i = 0; i < st->len; i++) {
+        if (st->table[i].id != out[i]) {
+            pass = false;
+            break;
+        }
+    }
+
+    if (pass) {
+        printf("%s passed\n", name);
+    } else {
+        printf("%s failed\n", name);
+    }
+}
+
 int main(int argc, char **argv) {
     struct scan_table_st scan_table;
+    /* char input[SCAN_INPUT_LEN]; */
     char *input = "200+ 1 + 303 - 0  ";
     int len;
-    
+
     len = strnlen(input, SCAN_INPUT_LEN);
+
+    /* len = file_read(argv[1], input); */
     
     scan_table_init(&scan_table);
     scan_table_scan(&scan_table, input, len);
     scan_table_print(&scan_table);
 
+    char *test2_in = "+ - 2000";
+    enum scan_token_enum test2_out[] = {TK_PLUS, TK_MINUS, TK_INTLIT, TK_EOT};
+    scan_table_init(&scan_table);
+    scan_table_scan(&scan_table, test2_in, strnlen(test2_in, SCAN_INPUT_LEN));
+    scan_table_print(&scan_table);
+    scan_test_check("test2", &scan_table, test2_out, 4);
     
     return 0;
 }
