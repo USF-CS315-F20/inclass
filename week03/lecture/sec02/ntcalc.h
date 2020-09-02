@@ -83,7 +83,31 @@ void scan_table_print(struct scan_table_st *tt);
               | '(' expression ')'
 */
 
-struct parse_node_st {}
+enum parse_expr_enum {EX_INTVAL, EX_OPER1, EX_OPER2};
+enum parse_oper_enum {OP_PLUS, OP_MINUS, OP_MULT, OP_DIV};
+
+struct parse_node_st {
+    enum parse_expr_enum type;
+    union {
+        struct {int value;} intval;
+        struct {enum parse_oper_enum oper;
+                struct parse_node_st *operand;} oper1;
+        struct {enum parse_oper_enum oper;
+                struct parse_node_st *left;
+                struct parse_node_st *right;} oper2;
+    };
+};
+
+#define PARSE_TABLE_LEN 1024
+
+struct parse_table_st {
+    struct parse_node_st table[PARSE_TABLE_LEN];
+    int len;
+};
+
+void parse_table_init(struct parse_table_st *pt);
+struct parse_node_st * parse_node_new(struct parse_table_st *pt);
+void parse_tree_print(struct parse_node_st *np);
 
 
 #endif /* _NTCALC_H */

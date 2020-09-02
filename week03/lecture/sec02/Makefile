@@ -1,5 +1,5 @@
 PROGS = ntcalc
-OBJS = scan.o 
+OBJS = scan.o parse.o
 
 CFLAGS = -g
 
@@ -13,8 +13,8 @@ CFLAGS = -g
 
 all : ${PROGS}
 
-ntcalc : ntcalc.h ntcalc.c scan.o 
-	gcc ${CFLAGS} -o $@ ntcalc.c scan.o 
+ntcalc : ntcalc.h ntcalc.c scan.o parse.o
+	gcc ${CFLAGS} -o $@ ntcalc.c scan.o parse.o
 
 clean :
 	rm -rf ${PROGS} ${OBJS} *~ *.dSYM
