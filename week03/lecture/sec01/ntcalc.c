@@ -59,10 +59,10 @@ int main(int argc, char **argv) {
 
     /* parse */
     struct parse_node_st *parse_tree;
-/*
+
     parse_table_init(&parse_table);
     parse_tree = parse_expression(&parse_table, &scan_table);
     parse_tree_print(parse_tree);
-*/    
+    
     return 0;
 }
