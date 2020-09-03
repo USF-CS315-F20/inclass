@@ -70,17 +70,45 @@ struct parse_node_st * parse_expression(struct parse_table_st *pt,
     struct parse_node_st *np1, *np2;
 
     np1 = parse_operand(pt, st);
-    tp = scan_table_get(st, 0);
-    if (tp->id == TK_PLUS) {
-        scan_table_accept(st, TK_ANY);
-        np2 = parse_node_new(pt);
-        np2->type = EX_OPER2;
-        np2->oper2.oper = OP_PLUS;
-        np2->oper2.left = np1;
-        np2->oper2.right = parse_operand(pt, st);
-        np1 = np2;       
+
+    while (true) {    
+        tp = scan_table_get(st, 0);
+        if (tp->id == TK_PLUS) {
+            scan_table_accept(st, TK_ANY);
+            np2 = parse_node_new(pt);
+            np2->type = EX_OPER2;
+            np2->oper2.oper = OP_PLUS;
+            np2->oper2.left = np1;
+            np2->oper2.right = parse_operand(pt, st);
+            np1 = np2;
+        } else {
+            break;
+        }
+    }
+
+    if (!scan_table_accept(st, TK_EOT)) {
+        parse_error("Expecting EOT");
     }
 
     return np1;
 }
 
+int eval_expr(struct parse_node_st *np) {
+    int v1, v2;
+    
+    if (np->type == EX_INTVAL) {
+        return np->intval.value;
+    } else if (np->type == EX_OPER2) {
+        v1 = eval_expr(np->oper2.left);
+        v2 = eval_expr(np->oper2.right);
+        if (np->oper2.oper == OP_PLUS) {
+            return v1 + v2;
+        } else if (np->oper2.oper == OP_MINUS) {
+            return v1 - v2;
+        } else if (np->oper2.oper == OP_MULT) {
+            return v1 * v2;
+        } else if (np->oper2.oper == OP_DIV) {
+            return v1 / v2;
+        }
+    }
+}

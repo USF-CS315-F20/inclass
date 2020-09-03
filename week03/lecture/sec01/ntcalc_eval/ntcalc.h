@@ -115,4 +115,6 @@ struct parse_node_st * parse_expression(struct parse_table_st *pt,
                                         struct scan_table_st *st);
 void parse_tree_print(struct parse_node_st *np);
 
+int eval_expr(struct parse_node_st *np);
+
 #endif /* _NTCALC_H */
