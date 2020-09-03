@@ -47,11 +47,12 @@ enum scan_token_enum {
     TK_MULT,   /* * */
     TK_DIV,    /* / */
     TK_EOT,    /* end of text */
+    TK_ANY,    /* wildcard for parser */
 };
 
 #define SCAN_TOKEN_STRINGS {"TK_INTLIT", "TK_LPAREN", "TK_RPAREN", \
                             "TK_PLUS", "TK_MINUS", "TK_MULT", "TK_DIV", \
-                            "TK_EOT"};
+                            "TK_EOT", "TK_ANY"};
 
 struct scan_token_st {
     enum scan_token_enum id;
@@ -67,6 +68,9 @@ struct scan_table_st {
 void scan_table_init(struct scan_table_st *tt);
 void scan_table_scan(struct scan_table_st *tt, char *input, int len);
 void scan_table_print(struct scan_table_st *tt);
+struct scan_token_st * scan_table_get(struct scan_table_st *st, int i);
+bool scan_table_accept(struct scan_table_st *st, enum scan_token_enum tk_expected);
+
 
 /*
  * parse.c
@@ -108,6 +112,8 @@ struct parse_table_st {
 void parse_table_init(struct parse_table_st *pt);
 struct parse_node_st * parse_node_new(struct parse_table_st *pt);
 void parse_tree_print(struct parse_node_st *np);
+struct parse_node_st * parse_expression(struct parse_table_st *pt,
+                                        struct scan_table_st *st);
 
 
 #endif /* _NTCALC_H */

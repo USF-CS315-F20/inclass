@@ -117,3 +117,27 @@ void scan_table_print(struct scan_table_st *st) {
         scan_token_print(&st->table[i]);
     }
 }
+
+struct scan_token_st * scan_table_get(struct scan_table_st *st, int i) {
+    return &(st->table[st->next + i]);
+}
+
+bool scan_table_accept(struct scan_table_st *st, enum scan_token_enum tk_expected) {
+    struct scan_token_st *tp;
+
+    if (tk_expected == TK_ANY) {
+        st->next += 1;
+        return true;
+    }
+
+    tp = scan_table_get(st, 0);
+
+    if (tp->id == tk_expected) {
+        st->next += 1;
+        return true;
+    }
+
+    return false;
+}
+
+
