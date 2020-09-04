@@ -16,7 +16,7 @@ int main(int argc, char **argv) {
     scan_table_scan(&scan_table, input, len);
     scan_table_print(&scan_table);
 
-    /* parse tree construction manual */
+    /* parse tree construction manaul */
 
     struct parse_node_st node1;
     struct parse_node_st node2;
@@ -35,11 +35,10 @@ int main(int argc, char **argv) {
 
     parse_tree_print(&node3);
 
-    /* parse tree construction from parse table */
-
-    struct parse_table_st parse_table;
+    /* parse tree construction from parse_table */
     struct parse_node_st *np1, *np2, *np3;
-    
+    struct parse_table_st parse_table;
+
     parse_table_init(&parse_table);
 
     np1 = parse_node_new(&parse_table);
@@ -48,8 +47,8 @@ int main(int argc, char **argv) {
     
     np2 = parse_node_new(&parse_table);
     np2->type = EX_INTVAL;
-    np2->intval.value = 2;
-
+    np2->intval.value = 1;
+    
     np3 = parse_node_new(&parse_table);
     np3->type = EX_OPER2;
     np3->oper2.oper = OP_PLUS;
@@ -58,11 +57,12 @@ int main(int argc, char **argv) {
 
     parse_tree_print(np3);
 
+    /* parse */
     struct parse_node_st *parse_tree;
-    
+
     parse_table_init(&parse_table);
     parse_tree = parse_expression(&parse_table, &scan_table);
     parse_tree_print(parse_tree);
-
+    
     return 0;
 }

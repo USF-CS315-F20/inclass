@@ -101,7 +101,6 @@ struct parse_node_st {
     };                
 };
 
-
 #define PARSE_TABLE_LEN 1024
 
 struct parse_table_st {
@@ -111,10 +110,15 @@ struct parse_table_st {
 
 void parse_table_init(struct parse_table_st *pt);
 struct parse_node_st * parse_node_new(struct parse_table_st *pt);
-struct parse_node_st * parse_expression(struct parse_table_st *pt, 
-                                        struct scan_table_st *st);
 void parse_tree_print(struct parse_node_st *np);
+struct parse_node_st * parse_program(struct parse_table_st *pt, 
+                                     struct scan_table_st *st);
 
-int eval_expr(struct parse_node_st *np);
+/*
+ * eval.c
+ */
+
+ int eval_tree(struct parse_node_st *np);
+
 
 #endif /* _NTCALC_H */

@@ -1,5 +1,5 @@
 PROGS = lab03 
-OBJS = scan.o parse.o eval.o
+OBJS = scan.o parse.o
 
 CFLAGS = -g
 
@@ -13,8 +13,8 @@ CFLAGS = -g
 
 all : ${PROGS}
 
-lab03 : ntcalc.h ntcalc.c scan.o parse.o eval.o
-	gcc ${CFLAGS} -o $@ ntcalc.c scan.o parse.o eval.o
+lab03 : ntcalc.h ntcalc.c scan.o parse.o
+	gcc ${CFLAGS} -o $@ ntcalc.c scan.o parse.o
 
 clean :
 	rm -rf ${PROGS} ${OBJS} *~ *.dSYM

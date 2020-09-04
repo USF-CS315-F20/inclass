@@ -2,6 +2,7 @@
 
 #include "ntcalc.h"
 
+
 void parse_table_init(struct parse_table_st *pt) {
     pt->len = 0;
 }
@@ -47,21 +48,30 @@ void parse_tree_print(struct parse_node_st *np) {
     
 }
 
+
+/* These prototypes are needed for the mutual recursion between
+   parse_expression() and parse_operand()
+*/
+
+struct parse_node_st * parse_program(struct parse_table_st *pt, 
+                                        struct scan_table_st *st);
+struct parse_node_st * parse_expression(struct parse_table_st *pt, 
+                                        struct scan_table_st *st);
 struct parse_node_st * parse_operand(struct parse_table_st *pt,
-                                     struct scan_table_st *st) {
-    struct scan_token_st *tp;
+                                     struct scan_table_st *st);
+
+
+struct parse_node_st * parse_program(struct parse_table_st *pt, 
+                                        struct scan_table_st *st) {
     struct parse_node_st *np1;
 
-    if (scan_table_accept(st, TK_INTLIT)) {
-        tp = scan_table_get(st, -1);
-        np1 = parse_node_new(pt);
-        np1->type = EX_INTVAL;
-        np1->intval.value = atoi(tp->value);
-    } else {
-        parse_error("Bad operand");
+    np1 = parse_expression(pt, st);
+
+    if (!scan_table_accept(st, TK_EOT)) {
+        parse_error("Expecting EOT");        
     }
 
-    return np1;
+    return np1;                                       
 }
 
 struct parse_node_st * parse_expression(struct parse_table_st *pt, 
@@ -86,29 +96,22 @@ struct parse_node_st * parse_expression(struct parse_table_st *pt,
         }
     }
 
-    if (!scan_table_accept(st, TK_EOT)) {
-        parse_error("Expecting EOT");
-    }
-
     return np1;
 }
 
-int eval_expr(struct parse_node_st *np) {
-    int v1, v2;
-    
-    if (np->type == EX_INTVAL) {
-        return np->intval.value;
-    } else if (np->type == EX_OPER2) {
-        v1 = eval_expr(np->oper2.left);
-        v2 = eval_expr(np->oper2.right);
-        if (np->oper2.oper == OP_PLUS) {
-            return v1 + v2;
-        } else if (np->oper2.oper == OP_MINUS) {
-            return v1 - v2;
-        } else if (np->oper2.oper == OP_MULT) {
-            return v1 * v2;
-        } else if (np->oper2.oper == OP_DIV) {
-            return v1 / v2;
-        }
+struct parse_node_st * parse_operand(struct parse_table_st *pt,
+                                     struct scan_table_st *st) {
+    struct scan_token_st *tp;
+    struct parse_node_st *np1;
+
+    if (scan_table_accept(st, TK_INTLIT)) {
+        tp = scan_table_get(st, -1);
+        np1 = parse_node_new(pt);
+        np1->type = EX_INTVAL;
+        np1->intval.value = atoi(tp->value);
+    } else {
+        parse_error("Bad operand");
     }
+
+    return np1;
 }
