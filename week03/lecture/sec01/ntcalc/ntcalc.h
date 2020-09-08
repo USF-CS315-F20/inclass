@@ -81,7 +81,9 @@ bool scan_table_accept(struct scan_table_st *st, enum scan_token_enum tk_expecte
  # Parser
 
  program    ::= expression EOT
+ 
  expression ::= operand (operator operand)*
+
  operand    ::= integer
               | '-' operand
               | '(' expression ')'
