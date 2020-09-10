@@ -1,9 +1,8 @@
 /* eval.c - tree interpretation */
 
 #include "ntcalc.h"
-
-int eval_tree(struct parse_node_st *np) {
-    int v1, v2;
+uint32_t eval_tree(struct parse_node_st *np) {
+    uint32_t v1, v2;
     
     if (np->type == EX_INTVAL) {
         return np->intval.value;

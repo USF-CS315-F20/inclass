@@ -95,7 +95,7 @@ enum parse_oper_enum {OP_PLUS, OP_MINUS, OP_MULT, OP_DIV};
 struct parse_node_st {
     enum parse_expr_enum type;
     union {
-        struct {int value;} intval;
+        struct {uint32_t value;} intval;
         struct {enum parse_oper_enum oper;
                 struct parse_node_st *operand;} oper1;
         struct {enum parse_oper_enum oper;
@@ -121,7 +121,7 @@ struct parse_node_st * parse_program(struct parse_table_st *pt,
  * eval.c
  */
 
- int eval_tree(struct parse_node_st *np);
+ uint32_t eval_tree(struct parse_node_st *np);
 
 
 #endif /* _NTCALC_H */
