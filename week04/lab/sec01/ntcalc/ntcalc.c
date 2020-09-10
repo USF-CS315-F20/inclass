@@ -15,8 +15,8 @@ void ntcalc_config_init(struct config_st *cp) {
 void ntcalc_print_usage (void) {
     printf("usage: ./ntcalc [-b base] -e \"expr\"\n");
     printf("  -b base can be 2 or 10\n");
-    printf("  examples: ./lab03 -e \"1 + 2\"\n");
-    printf("  examples: ./lab03 -b 2 -e \"~(0b1110 >> 2)\"\n");  
+    printf("  examples: ./ntcalc -e \"1 + 2\"\n");
+    printf("  examples: ./ntcalc -b 2 -e \"~(0b1110 >> 2)\"\n");  
 }
 
 void ntcalc_parse_args(int argc, char **argv, struct config_st *cp) {
