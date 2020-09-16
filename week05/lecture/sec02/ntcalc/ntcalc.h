@@ -28,6 +28,7 @@ intlit      ::= digit (digit)*
 symbol      ::= '+' | '-' | '*' | '/' | '(' | ')' | '~' | '<<'
 digit       ::= '0' | ... | '9'
 binlit      ::= '0b' ['0', '1'] (['0', '1'])*
+
 # Ignore
 
 whitespace  ::=  (' ' | '\t') (' ' | '\t')* 
@@ -40,7 +41,7 @@ whitespace  ::=  (' ' | '\t') (' ' | '\t')*
 
 enum scan_token_enum {
     TK_INTLIT, /* -123, 415 */
-    TK_BINLIT, /* 0b1010, 0b00001111 */
+    TK_BINLIT, /* 0b1010, 0b10001111 */
     TK_LPAREN, /* ( */
     TK_RPAREN, /* ) */
     TK_PLUS,   /* + */
@@ -56,7 +57,8 @@ enum scan_token_enum {
 #define SCAN_TOKEN_STRINGS {"TK_INTLIT", "TK_BINLIT", \
                             "TK_LPAREN", "TK_RPAREN", \
                             "TK_PLUS", "TK_MINUS", "TK_MULT", "TK_DIV", \
-                            "TK_NOT", "TK_LSL", "TK_EOT", "TK_ANY"};
+                            "TK_NOT", "TK_LSL", \
+                            "TK_EOT", "TK_ANY"};
 
 struct scan_token_st {
     enum scan_token_enum id;
@@ -88,16 +90,14 @@ bool scan_table_accept(struct scan_table_st *st, enum scan_token_enum tk_expecte
  
  expression ::= operand (operator operand)*
 
- operand    ::= intlit
-              | binlit
+ operand    ::= integer
               | '-' operand
               | '~' operand
               | '(' expression ')'
 */
 
 enum parse_expr_enum {EX_INTVAL, EX_OPER1, EX_OPER2};
-enum parse_oper_enum {OP_PLUS, OP_MINUS, OP_MULT, OP_DIV,
-                      OP_NOT, OP_LSL};
+enum parse_oper_enum {OP_PLUS, OP_MINUS, OP_MULT, OP_DIV, OP_NOT, OP_LSL};
 
 struct parse_node_st {
     enum parse_expr_enum type;
@@ -131,12 +131,10 @@ struct parse_node_st * parse_program(struct parse_table_st *pt,
  uint32_t conv_binstr_to_uint32(char *binstr);
  void conv_uint32_to_binstr(uint32_t v, char *binstr);
 
-
 /*
  * eval.c
  */
 
  uint32_t eval_tree(struct parse_node_st *np);
-
 
 #endif /* _NTCALC_H */
