@@ -71,11 +71,17 @@ char * scan_integer(char *p, char *end, struct scan_token_st *tp) {
 
 char * scan_binlit(char *p, char *end, struct scan_token_st *tp) {
     int i = 0;
-    while (scan_is_bindigit(*p) && p < end) {
+
+    while (scan_is_bindigit(*p) && p < end && i < 32) {
         tp->value[i] = *p;
         p += 1;
         i += 1;
     }
+
+    if (i >= 32) {
+        scan_error("Binary literal too big.");
+    }
+    
     tp->value[i] = '\0';
     tp->id = TK_BINLIT;
     return p;
