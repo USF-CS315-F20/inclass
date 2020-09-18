@@ -34,7 +34,7 @@ whitespace  ::=  (' ' | '\t') (' ' | '\t')*
 
 */
 
-#define SCAN_TOKEN_LEN 32
+#define SCAN_TOKEN_LEN 64
 #define SCAN_TOKEN_TABLE_LEN 1024
 #define SCAN_INPUT_LEN 2048
 

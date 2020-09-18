@@ -30,11 +30,11 @@ void ntcalc_parse_args(int argc, char **argv, struct config_st *cp) {
     }
 
     while (i < argc) {
-        if (argv[i][0] == '-' && argv[i][1] == 'e') {
-            strncpy(cp->input, argv[i+1], SCAN_INPUT_LEN);
+        if (argv[i][0] == '-' && argv[i][1] == 'e' && (i + 1) < argc) {
+            strncpy(cp->input, argv[i + 1], SCAN_INPUT_LEN);
             i += 2;
-        } else if (argv[i][0] == '-' && argv[i][1] == 'b') {
-            cp->base = atoi(argv[i+1]);
+        } else if (argv[i][0] == '-' && argv[i][1] == 'b' && (i + 1) < argc) {
+            cp->base = atoi(argv[i + 1]);
             i += 2;
         } else if (argv[i][0] == '-' && argv[i][1] == 'd') {
             cp->debug = true;
@@ -72,9 +72,6 @@ int main(int argc, char **argv) {
     ntcalc_config_init(&config);
     ntcalc_parse_args(argc, argv, &config);
 
-    /* Remove this line in your final solution */
-    printf("config.base = %d\n", config.base);
-    
     len = strnlen(config.input, SCAN_INPUT_LEN);
 
     scan_table_init(&scan_table);

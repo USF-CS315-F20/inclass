@@ -11,6 +11,7 @@ struct config_st {
 void ntcalc_config_init(struct config_st *cp) {
     cp->input[0] = '\0';
     cp->base = 10;
+    cp->debug = false;
 }
 
 void ntcalc_print_usage (void) {
@@ -29,11 +30,11 @@ void ntcalc_parse_args(int argc, char **argv, struct config_st *cp) {
     }
 
     while (i < argc) {
-        if (argv[i][0] == '-' && argv[i][1] == 'e') {
-            strncpy(cp->input, argv[i+1], SCAN_INPUT_LEN);
+        if (argv[i][0] == '-' && argv[i][1] == 'e' && (i + 1) < argc) {
+            strncpy(cp->input, argv[i + 1], SCAN_INPUT_LEN);
             i += 2;
-        } else if (argv[i][0] == '-' && argv[i][1] == 'b') {
-            cp->base = atoi(argv[i+1]);
+        } else if (argv[i][0] == '-' && argv[i][1] == 'b' && (i + 1) < argc) {
+            cp->base = atoi(argv[i + 1]);
             i += 2;
         } else if (argv[i][0] == '-' && argv[i][1] == 'd') {
             cp->debug = true;
@@ -78,7 +79,7 @@ int main(int argc, char **argv) {
     if (config.debug) {
         scan_table_print(&scan_table);
     }
-
+    
     parse_table_init(&parse_table);
     parse_tree = parse_program(&parse_table, &scan_table);
     if (config.debug) {
@@ -90,8 +91,8 @@ int main(int argc, char **argv) {
         conv_uint32_to_binstr(result, result_str);
         printf("%s\n", result_str);
     } else if (config.base == 10) {
-        printf("%d\n", result);
+        printf("%u\n", result);
     }
-
+    
     return 0;
 }
