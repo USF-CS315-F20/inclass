@@ -78,7 +78,7 @@ char * scan_binlit(char *p, char *end, struct scan_token_st *tp) {
         i += 1;
     }
 
-    if (i >= 32) {
+    if (i == 32 && scan_is_bindigit(*p)) {
         scan_error("Binary literal too big.");
     }
     

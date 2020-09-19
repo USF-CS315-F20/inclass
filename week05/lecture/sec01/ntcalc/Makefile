@@ -1,5 +1,6 @@
-PROGS = lab03 
-OBJS = scan.o parse.o eval.o conv.o
+PROG = lab04
+OBJS = scan.o parse.o eval.o ntcalc.o conv.o
+HEADERS = ntcalc.h
 
 CFLAGS = -g
 
@@ -7,15 +8,11 @@ CFLAGS = -g
 %.o : %.c
 	gcc ${CFLAGS} -c -o $@ $<
 
-%.o : %.s
-	as -o $@ $<
+all : ${PROG}
 
-
-all : ${PROGS}
-
-lab03 : ntcalc.h ntcalc.c scan.o parse.o eval.o conv.o
-	gcc ${CFLAGS} -o $@ ntcalc.c scan.o parse.o eval.o conv.o
+${PROG} : ${OBJS} ${HEADERS}
+	gcc ${CFLAGS} -o $@ ${OBJS}
 
 clean :
-	rm -rf ${PROGS} ${OBJS} *~ *.dSYM
+	rm -rf ${PROG} ${OBJS} *~ *.dSYM
 

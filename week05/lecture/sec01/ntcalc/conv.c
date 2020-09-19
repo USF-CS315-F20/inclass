@@ -11,7 +11,7 @@ uint32_t conv_binstr_to_uint32(char *binstr) {
         result *= 2;
         result += binstr[i] - '0';
         i += 1;
-        if (i >= 32) {
+        if (i > 32) {
             printf("BINLIT too big\n");
             exit(-1);
         }     

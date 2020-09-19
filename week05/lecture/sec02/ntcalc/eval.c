@@ -1,7 +1,6 @@
 /* eval.c - tree interpretation */
 
 #include "ntcalc.h"
-
 uint32_t eval_tree(struct parse_node_st *np) {
     uint32_t v1, v2;
     
@@ -28,5 +27,7 @@ uint32_t eval_tree(struct parse_node_st *np) {
         } else if (np->oper2.oper == OP_LSL) {
             return v1 << v2;
         }
+
+
     }
 }

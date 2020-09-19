@@ -77,9 +77,8 @@ struct parse_node_st * parse_program(struct parse_table_st *pt,
     return np1;                                       
 }
 
-enum parse_oper_enum parse_token_enum_lookup(enum scan_token_enum tkid)
-{
-    switch (tkid) {
+enum parse_oper_enum parse_token_oper_lookup(enum scan_token_enum tkid) {
+    switch(tkid) {
         case TK_PLUS:
             return OP_PLUS;
         case TK_MINUS:
@@ -91,7 +90,7 @@ enum parse_oper_enum parse_token_enum_lookup(enum scan_token_enum tkid)
         case TK_LSL:
             return OP_LSL;
         default:
-            parse_error("Invalid operation");
+            parse_error("Invalid operator");
     }
 }
 
@@ -110,7 +109,7 @@ struct parse_node_st * parse_expression(struct parse_table_st *pt,
             scan_table_accept(st, TK_ANY);
             np2 = parse_node_new(pt);
             np2->type = EX_OPER2;
-            np2->oper2.oper = parse_token_enum_lookup(tp->id);
+            np2->oper2.oper = parse_token_oper_lookup(tp->id);
             np2->oper2.left = np1;
             np2->oper2.right = parse_operand(pt, st);
             np1 = np2;
@@ -138,13 +137,11 @@ struct parse_node_st * parse_operand(struct parse_table_st *pt,
         np1->type = EX_INTVAL;
         np1->intval.value = conv_binstr_to_uint32(tp->value);
     } else if (scan_table_accept(st, TK_MINUS)) {
-        tp = scan_table_get(st, -1);
         np1 = parse_node_new(pt);
         np1->type = EX_OPER1;
         np1->oper1.oper = OP_MINUS;
         np1->oper1.operand = parse_operand(pt, st);
     } else if (scan_table_accept(st, TK_NOT)) {
-        tp = scan_table_get(st, -1);
         np1 = parse_node_new(pt);
         np1->type = EX_OPER1;
         np1->oper1.oper = OP_NOT;
