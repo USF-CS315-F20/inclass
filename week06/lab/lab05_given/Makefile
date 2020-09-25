@@ -1,4 +1,4 @@
-PROGS = add4_main quadratic_main min_main
+PROGS = add4_main quadratic_main min_main lab05
 
 OBJS = add4_c.o add4_s.o quadratic_c.o quadratic_s.o min_c.o min_s.o
 
