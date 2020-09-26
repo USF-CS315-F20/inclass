@@ -17,8 +17,7 @@ int main(int argc, char **argv) {
     }
 
     progname[0] = '\0';
-    strncpy(progname, "./", 3);
-    strncat(progname, argv[1], MAX_PATH);
+    strncpy(progname, argv[1], MAX_PATH);
 
     id = fork();
 
