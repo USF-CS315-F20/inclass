@@ -1,0 +1,16 @@
+PROGS = main
+
+OBJS = in_range_c.o in_range_s.o count_zeros_c.o count_zeros_s.o
+
+CFLAGS = -g
+
+%.o : %.s
+	as ${CFLAGS} -o $@ $^
+
+all : ${PROGS}
+
+main : main.c ${OBJS}
+	gcc ${CFLAGS} -o $@ $^
+
+clean :
+	rm -rf ${PROGS} ${OBJS} *~

@@ -5,6 +5,10 @@ OBJS = first_c.o first_s.o add_c.o add_s.o mul_c.o mul_s.o \
 
 CFLAGS = -g
 
+%.o : %.s
+	as ${CFLAGS} -o $@ $<
+
+
 all : ${PROGS}
 
 add_main : add_main.c add_c.o add_s.o
