@@ -5,6 +5,7 @@ int in_range_c(r0, r1, x) {
 */
 
 int in_range_c(int start, int end, int x) {
+    /* is start <= x <= end */
     int r = 0;
 
     if (x >= start) {
