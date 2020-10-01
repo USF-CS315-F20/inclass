@@ -1,6 +1,7 @@
 PROGS = main
 
-OBJS = in_range_c.o in_range_s.o count_zeros_c.o count_zeros_s.o
+OBJS = in_range_c.o in_range_s.o count_zeros_c.o count_zeros_s.o \
+	   sum_array_c.o sum_array_s.o add4_s.o
 
 CFLAGS = -g
 
