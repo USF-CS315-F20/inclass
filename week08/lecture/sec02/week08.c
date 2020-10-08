@@ -7,6 +7,8 @@ int sum_array_rec_s(int *array, int index, int len);
 char *strcat_c(char *dst, char *src);
 char *strcat_s(char *dst, char *src);
 
+int match_s(char *s1, char *s2, int len2);
+
 int substr_c(char *s1, char *s2);
 int substr_s(char *s1, char *s2);
 
@@ -35,6 +37,12 @@ int main(int argc, char **argv)
     strcpy(s, "foo");
     strcat_s(s, "bar");
     printf("strcat_s(\"foo\", \"bar\") = %s\n", s);
+
+    r = match_s("foo", "bar", 3);
+    printf("match_s(\"foo\", \"bar\", 3) = %d\n", r);
+
+    r = match_s("foo", "foo", 3);
+    printf("match_s(\"foo\", \"foo\", 3) = %d\n", r);
 
     r = substr_c("foobar", "bar");
     printf("substr_c(\"foobar\", \"bar\") = %d\n", r);
