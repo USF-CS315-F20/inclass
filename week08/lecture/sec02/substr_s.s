@@ -63,7 +63,7 @@ substr_s2_len_loop:
     cmp r12, #0
     beq substr_match_init
     add r3, r3, #1
-    b substr_s1_len_loop
+    b substr_s2_len_loop
 
 /* r12 - int i */
 substr_match_init:

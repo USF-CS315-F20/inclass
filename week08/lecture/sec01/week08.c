@@ -12,6 +12,8 @@ int match_s(char *s1, char *s2, int len2);
 int substr_c(char *s1, char *s2);
 int substr_s(char *s1, char *s2);
 
+void decode(void);
+
 int main(int argc, char **argv)
 {
     int r;
@@ -49,6 +51,8 @@ int main(int argc, char **argv)
 
     r = substr_s("foobar", "bar");
     printf("substr_s(\"foobar\", \"bar\") = %d\n", r);
+
+    decode();
 
     return 0;
 }

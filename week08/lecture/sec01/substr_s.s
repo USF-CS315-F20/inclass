@@ -15,6 +15,7 @@ match_s:
     str r4, [sp]
     mov r3, #0
 
+
 match_loop:
     cmp r3, r2
     bge match_loop_exit_true
@@ -27,6 +28,8 @@ match_loop:
 
 match_continue:
     add r3, r3, #1
+    add r0, r0, #1
+    add r1, r1, #1
     b match_loop    
 
 match_loop_exit_true:

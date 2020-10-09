@@ -17,8 +17,8 @@ sum_array_rec_s:
     bne sum_array_rec_step
     ldr r0, [r0, r1, LSL #2]
     b sum_array_rec_end
-sum_array_rec_step:
 
+sum_array_rec_step:
     ldr r3, [r0, r1, LSL #2]
     str r3, [sp, #4]
 
