@@ -107,10 +107,12 @@ struct parse_node_st * parse_statements(struct parse_table_st *pt,
     struct parse_node_st *np, *np1, *np2;
     enum scan_token_enum tid;
 
+    parse_eols(st);
     np = parse_statement(pt, st);
     if (!scan_table_accept(st, TK_EOL)) {
         parse_error("expecting EOL");
     }
+    parse_eols(st);
 
     tid = scan_table_get(st, 0)->id;
     if (tid != TK_EOT) {

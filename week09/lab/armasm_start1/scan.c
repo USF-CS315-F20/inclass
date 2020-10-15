@@ -98,9 +98,6 @@ char * scan_token(char *p, char *end, struct scan_token_st *tp) {
         while (*p != '\n' && p < end) {
             p += 1;
         }
-        if (p < end) {
-            p += 1;
-        }
         p = scan_token(p, end, tp);
     } else if (scan_is_whitespace(*p)) {
         p = scan_whitespace(p, end);
