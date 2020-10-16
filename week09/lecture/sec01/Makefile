@@ -1,11 +1,12 @@
 PROGS = week09
 
-OBJS = machinecode.o add_s.o max2_s.o
+OBJS = add_s.o max2_s.o
 
 CFLAGS = -g
+ASFLAGS = -g
 
 %.o : %.s
-	as ${CFLAGS} -o $@ $^
+	as ${ASLAGS} -o $@ $^
 
 all : ${PROGS}
 

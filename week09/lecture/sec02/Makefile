@@ -1,6 +1,6 @@
 PROGS = week09
 
-OBJS = machinecode.o add_s.o
+OBJS = add_s.o
 
 CFLAGS = -g
 

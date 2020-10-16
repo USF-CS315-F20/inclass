@@ -4,7 +4,15 @@
 
 int add_s(int a0, int a1);
 
-void decode(char *name, uint32_t *code, int len);
+void decode(char *name, uint32_t *code, int len) {
+    int i;
+    uint32_t iw;
+
+    for (i = 0; i < len; i++) {
+        iw = code[i];
+        printf("%s + %d : %8X\n", name, (i * 4), iw);
+    }
+}
 
 void copy_code(uint32_t *dst, uint32_t *src, int len) {
     int i;
@@ -43,7 +51,9 @@ int main(int argc, char **argv)
     printf("\n");
 
     fp = (int (*)(int, int)) code;
+     __clear_cache((char *) code, ((char *) code) + 16);
     r = fp(1, 2);
+
     printf("code(1, 2) = %d\n", r);
     printf("\n");
 

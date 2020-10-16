@@ -68,6 +68,45 @@ void codegen_dp3(struct codegen_table_st *ct, struct parse_node_st *np) {
         np->stmt.inst.dp3.rm);
 }
 
+void codegen_mem_common(struct codegen_table_st *ct, uint32_t imm, 
+    uint32_t updown, uint32_t byteword, uint32_t loadstore,
+    uint32_t rn, uint32_t rd, uint32_t offset) {
+
+    const uint32_t DP_SDT_BIT = 26;
+    const uint32_t DP_IMM_BIT = 25;
+    const uint32_t DP_PREPOST_BIT = 24;
+    const uint32_t DP_UPDOWN_BIT = 23;
+    const uint32_t DP_BYTEWORD_BIT = 22;
+    const uint32_t DP_LOADSTORE_BIT = 20;    
+    const uint32_t DP_RN_BIT  = 16;
+    const uint32_t DP_RD_BIT  = 12;
+    uint32_t inst = 0;
+
+    inst = (COND_AL << COND_BIT)
+        | (0b01 << DP_SDT_BIT)
+        | (imm << DP_IMM_BIT)
+        | (0b1 << DP_PREPOST_BIT)
+        | (updown << DP_UPDOWN_BIT)
+        | (byteword << DP_BYTEWORD_BIT)
+        | (loadstore << DP_LOADSTORE_BIT)
+        | (rn  << DP_RN_BIT)
+        | (rd  << DP_RD_BIT)
+        | offset;
+    codegen_add_inst(ct, inst);
+}
+
+void codegen_mem3(struct codegen_table_st *ct, struct parse_node_st *np) {
+    codegen_mem_common(
+        ct,
+        1, /*imm*/
+        1, /* updown */
+        0, /* byteword */
+        1, /* loadstore - need to change when adding str */
+        np->stmt.inst.mem3.rn,
+        np->stmt.inst.mem3.rd,
+        np->stmt.inst.mem3.rm);
+}
+
 void codegen_bx(struct codegen_table_st *ct, struct parse_node_st *np) {
     const uint32_t BX_CODE_BIT = 4;
     const uint32_t bx_code = 0b000100101111111111110001;
@@ -81,9 +120,10 @@ void codegen_bx(struct codegen_table_st *ct, struct parse_node_st *np) {
 void codegen_inst(struct codegen_table_st *ct, struct parse_node_st *np) {
 
     switch (np->stmt.inst.type) {
-        case DP3 : codegen_dp3(ct, np); break;
-        case BX  : codegen_bx(ct, np); break;
-        default  : codegen_error("unknown stmt.inst.type");
+        case DP3  : codegen_dp3(ct, np); break;
+        case MEM3 : codegen_mem3(ct, np); break;
+        case BX   : codegen_bx(ct, np); break;
+        default   : codegen_error("unknown stmt.inst.type");
     }
 }
 

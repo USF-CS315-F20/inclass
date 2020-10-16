@@ -92,13 +92,14 @@ statements  ::= statement EOL
               | statement EOL statements
 
 statement   ::= directive
-              | label ":" instruction
+              | label ":" (EOL)* instruction
               | instruction
 
 directive   ::= "." ident
 
 instruction ::= dp register "," register "," register
               | dp register "," register "," immediate
+              | mem register "," "[" register "," register "]"
               | mem register "," "[" register "]"
               | mem register "," "[" register "," immediate "]"
               | branch label
@@ -116,13 +117,14 @@ bx          ::= "bx"
 
 */
 
-enum parse_opcode_enum {OC_DP, OC_BX, OC_NONE};
+enum parse_opcode_enum {OC_DP, OC_MEM, OC_BX, OC_NONE};
 
-#define PARSE_DP_OPS {"add", NULL}
+#define PARSE_DP_OPS {"add", "sub", NULL}
+#define PARSE_MEM_OPS {"ldr", NULL}
 #define PARSE_BX_OPS {"bx", NULL}
 
 enum parse_stmt_enum {INST, SEQ};
-enum parse_inst_enum {DP3, BX};
+enum parse_inst_enum {DP3, MEM3, BX};
 
 struct parse_node_st {
     enum parse_stmt_enum type;
@@ -133,6 +135,7 @@ struct parse_node_st {
             enum parse_inst_enum type;
             union {
                 struct {int rd; int rn; int rm;} dp3;
+                struct {int rd; int rn; int rm;} mem3;
                 struct bx {int rn;} bx;
             };
         } inst;
@@ -195,7 +198,7 @@ struct codegen_map_st {
 };
 
 #define CODEGEN_OPCODE_MAP \
-    { {"add", 0b0100} };
+    { {"add", 0b0100}, {"sub", 0b0010} };
 
 enum codegen_cond {
     COND_EQ, COND_NE, COND_CS, COND_CC, COND_MI, COND_PL, COND_VS, COND_VC,
