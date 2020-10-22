@@ -91,11 +91,9 @@ program     ::= statements EOT
 statements  ::= statement EOL
               | statement EOL statements
 
-statement   ::= directive
+statement   ::= directive label
               | label ":" (EOL)* instruction
               | instruction
-
-directive   ::= "." ident
 
 instruction ::= dp register "," register "," register
               | dp register "," register "," immediate
@@ -121,7 +119,8 @@ enum parse_opcode_enum {OC_DP, OC_MUL, OC_MEM, OC_BX, OC_NONE};
 
 #define PARSE_DP_OPS {"add", "sub", NULL}
 #define PARSE_MUL_OPS {"mul", NULL}
-#define PARSE_MEM_OPS {"ldr", "str",  NULL}
+#define PARSE_MEM_OPS {"ldr", "str", NULL}
+#define PARSE_B_OPS {"b", "beq", "blt", ....}
 #define PARSE_BX_OPS {"bx", NULL}
 
 enum parse_stmt_enum {INST, SEQ};
@@ -136,7 +135,7 @@ struct parse_node_st {
             enum parse_inst_enum type;
             union {
                 struct {int rd; int rn; int rm;} dp3;
-                struct {int rd; int rs; int rm;} mul;
+                struct {int rd; int rm; int rs;} mul;
                 struct {int rd; int rn; int rm;} mem3;
                 struct {int rd; int rn; int imm;} memi;
                 struct bx {int rn;} bx;

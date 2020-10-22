@@ -91,11 +91,9 @@ program     ::= statements EOT
 statements  ::= statement EOL
               | statement EOL statements
 
-statement   ::= directive
+statement   ::= directive label
               | label ":" (EOL)* instruction
               | instruction
-
-directive   ::= "." ident
 
 instruction ::= dp register "," register "," register
               | dp register "," register "," immediate
