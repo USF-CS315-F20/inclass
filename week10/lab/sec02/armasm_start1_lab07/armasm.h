@@ -24,9 +24,10 @@
 
 tokenlist   ::= (token)*
 token       ::= ident | imm | symbol
+directive   ::= "." ident
 ident       ::= letter (letter | digit | '_')*
 imm         ::= '#' ('-')+ digit (digit)*
-symbol      ::= '.' | '[' | ']' | ',' | ':' 
+symbol      ::= '[' | ']' | ',' | ':' 
 letter      ::= 'a' | ... | 'z' | 'A' | ... | 'Z'
 digit       ::= '0' | ... | '9'
 eol         ::= '\n'
