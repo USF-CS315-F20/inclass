@@ -122,6 +122,7 @@ enum parse_opcode_enum {OC_DP, OC_MUL, OC_MEM, OC_BX, OC_NONE};
 #define PARSE_DP_OPS {"add", "sub", NULL}
 #define PARSE_MUL_OPS {"mul", NULL}
 #define PARSE_MEM_OPS {"ldr", "str", NULL}
+#define PARSE_B_OPS {"b", "beq", "blt", ....}
 #define PARSE_BX_OPS {"bx", NULL}
 
 enum parse_stmt_enum {INST, SEQ};
