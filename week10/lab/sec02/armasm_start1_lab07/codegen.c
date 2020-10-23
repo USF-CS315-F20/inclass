@@ -122,7 +122,7 @@ void codegen_mem_common(struct codegen_table_st *ct, uint32_t imm,
 void codegen_mem3(struct codegen_table_st *ct, struct parse_node_st *np) {
     codegen_mem_common(
         ct,
-        1, /* imm*/
+        1, /* imm */
         1, /* updown */
         0, /* byteword */
         1, /* loadstore - need to change when adding str */
@@ -191,7 +191,7 @@ void codegen_print_hex(struct codegen_table_st *ct) {
 
     printf("v2.0 raw\n");
     for (i = 0; i < ct->len; i++) {
-        printf("%8X\n", ct->table[i]);
+        printf("%08X\n", ct->table[i]);
     }
 }
 
@@ -201,7 +201,7 @@ void codegen_write(struct codegen_table_st *ct, char *path) {
 
     fprintf(obj, "v2.0 raw\n");
     for (i = 0; i < ct->len; i++) {
-        fprintf(obj, "%8X\n", ct->table[i]);
+        fprintf(obj, "%08X\n", ct->table[i]);
     }
     fclose(obj);
 }

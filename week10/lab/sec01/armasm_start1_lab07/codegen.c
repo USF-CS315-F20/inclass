@@ -69,7 +69,7 @@ void codegen_dp3(struct codegen_table_st *ct, struct parse_node_st *np) {
 }
 
 void codegen_mul_common(struct codegen_table_st *ct, uint32_t rd, 
-    uint32_t rm, uint32_t rs) {
+    uint32_t rs, uint32_t rm) {
 
     const uint32_t MUL_RD_BIT = 16;
     const uint32_t MUL_RS_BIT = 8;
@@ -79,8 +79,8 @@ void codegen_mul_common(struct codegen_table_st *ct, uint32_t rd,
     inst = (COND_AL << COND_BIT)
         | (rd  << MUL_RD_BIT)
         | (rs  << MUL_RS_BIT)
-        | (0b1001 << MUL_MUL_BIT)
-        | (rm);
+        | (0b1001  << MUL_MUL_BIT)
+        | rm;
     codegen_add_inst(ct, inst);
 }
 
@@ -88,8 +88,8 @@ void codegen_mul(struct codegen_table_st *ct, struct parse_node_st *np) {
     codegen_mul_common(
         ct,
         np->stmt.inst.mul.rd,
-        np->stmt.inst.mul.rm,
-        np->stmt.inst.mul.rs);
+        np->stmt.inst.mul.rs,
+        np->stmt.inst.mul.rm);
 }
 
 void codegen_mem_common(struct codegen_table_st *ct, uint32_t imm, 
@@ -122,7 +122,7 @@ void codegen_mem_common(struct codegen_table_st *ct, uint32_t imm,
 void codegen_mem3(struct codegen_table_st *ct, struct parse_node_st *np) {
     codegen_mem_common(
         ct,
-        1, /* imm*/
+        1, /* imm */
         1, /* updown */
         0, /* byteword */
         1, /* loadstore - need to change when adding str */
@@ -132,18 +132,19 @@ void codegen_mem3(struct codegen_table_st *ct, struct parse_node_st *np) {
 }
 
 void codegen_memi(struct codegen_table_st *ct, struct parse_node_st *np) {
-    uint32_t loadstore = 1;
+    uint32_t loadstore = 0;
+
     if (strncmp(np->stmt.inst.name, "str", SCAN_TOKEN_LEN) == 0) {
         loadstore = 0;
     } else if (strncmp(np->stmt.inst.name, "ldr", SCAN_TOKEN_LEN) == 0) {
         loadstore = 1;
     } else {
         codegen_error("Invalid memory instruction.");
-    } 
+    }
 
     codegen_mem_common(
         ct,
-        0, /*imm*/
+        0, /* imm*/
         1, /* updown */
         0, /* byteword */
         loadstore, /* loadstore */
@@ -151,6 +152,7 @@ void codegen_memi(struct codegen_table_st *ct, struct parse_node_st *np) {
         np->stmt.inst.memi.rd,
         np->stmt.inst.memi.imm);
 }
+
 
 void codegen_bx(struct codegen_table_st *ct, struct parse_node_st *np) {
     const uint32_t BX_CODE_BIT = 4;
@@ -189,7 +191,7 @@ void codegen_print_hex(struct codegen_table_st *ct) {
 
     printf("v2.0 raw\n");
     for (i = 0; i < ct->len; i++) {
-        printf("%8X\n", ct->table[i]);
+        printf("%08X\n", ct->table[i]);
     }
 }
 
@@ -199,7 +201,7 @@ void codegen_write(struct codegen_table_st *ct, char *path) {
 
     fprintf(obj, "v2.0 raw\n");
     for (i = 0; i < ct->len; i++) {
-        fprintf(obj, "%8X\n", ct->table[i]);
+        fprintf(obj, "%08X\n", ct->table[i]);
     }
     fclose(obj);
 }
