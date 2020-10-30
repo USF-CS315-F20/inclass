@@ -178,7 +178,6 @@ struct parse_node_st * parse_instruction(struct parse_table_st *pt,
     tp6 = scan_table_get(st, 6);
     tp7 = scan_table_get(st, 7);                
 
-
     if ((opcode == OC_DP) && (tp1->id == TK_IDENT) && 
         (tp2->id == TK_COMMA) && (tp3->id == TK_IDENT) && 
         (tp4->id == TK_COMMA) && (tp5->id == TK_IDENT)) {
@@ -193,10 +192,10 @@ struct parse_node_st * parse_instruction(struct parse_table_st *pt,
         /* Accept instruction tokens */
         scan_table_accept_any_n(st, 6);
 
-     } else if ((opcode == OC_MUL) && (tp1->id == TK_IDENT) && 
-                (tp2->id == TK_COMMA) && (tp3->id == TK_IDENT) && 
-                (tp4->id == TK_COMMA) && (tp5->id == TK_IDENT)) {
-        /* Parse mul instructions: mul rd, rm, rs */
+    } else if ((opcode == OC_MUL) && (tp1->id == TK_IDENT) && 
+        (tp2->id == TK_COMMA) && (tp3->id == TK_IDENT) && 
+        (tp4->id == TK_COMMA) && (tp5->id == TK_IDENT)) {
+        /* Parse mul instructions: mul reg, reg, reg */
   
         np->stmt.inst.type = MUL;
         strncpy(np->stmt.inst.name, tp0->value, SCAN_TOKEN_LEN);
@@ -235,7 +234,7 @@ struct parse_node_st * parse_instruction(struct parse_table_st *pt,
 
         /* Accept instruction tokens */
         scan_table_accept_any_n(st, 6);
-        
+                
      } else if ((opcode == OC_BX) && (tp1->id == TK_IDENT)) {
         /* Parse bx instructions: bx reg */ 
   

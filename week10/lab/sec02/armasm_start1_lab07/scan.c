@@ -46,6 +46,17 @@ bool scan_is_digit(char c) {
     return c >= '0' && c <= '9';
 }
 
+char *scan_c_comment(char *p, char *end) {
+    while (p < end) {
+        if ((*p == '*') && (*(p + 1) == '/')) {
+            p = p + 2;
+            break;
+        }
+        p += 1;
+    }
+    return p;
+}
+
 bool scan_is_whitespace(char c) {
     return (c == ' ' || c == '\t');
 }
@@ -98,6 +109,10 @@ char * scan_token(char *p, char *end, struct scan_token_st *tp) {
         while (*p != '\n' && p < end) {
             p += 1;
         }
+        p = scan_token(p, end, tp);
+    } else if ((*p == '/') && (*(p + 1) == '*')) {
+        /* Ignore C-style comments */
+        p = scan_c_comment(p, end);
         p = scan_token(p, end, tp);
     } else if (scan_is_whitespace(*p)) {
         p = scan_whitespace(p, end);
