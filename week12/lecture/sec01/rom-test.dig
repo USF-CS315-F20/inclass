@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<circuit>
+  <version>1</version>
+  <attributes/>
+  <visualElements>
+    <visualElement>
+      <elementName>ROM</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>Instruction Memory</string>
+        </entry>
+        <entry>
+          <string>AddrBits</string>
+          <int>8</int>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>32</int>
+        </entry>
+        <entry>
+          <string>Data</string>
+          <data>e24dd008,e58de000,e3500000,1a000001,e3a00001,ea000004,e58d0004,e2400001,ebfffff6,
+e59d1004,e0000091,e59de000,e28dd008,e12fff1e,e2800000</data>
+        </entry>
+        <entry>
+          <string>lastDataFile</string>
+          <string>/Users/benson/Dropbox/USF/Classes/2020F/cs315/git/inclass/week12/lecture/sec01/fact_s.hex</string>
+        </entry>
+      </elementAttributes>
+      <pos x="340" y="220"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Const</elementName>
+      <elementAttributes/>
+      <pos x="300" y="260"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>ADDR</string>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>8</int>
+        </entry>
+      </elementAttributes>
+      <pos x="220" y="220"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>IW</string>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>32</int>
+        </entry>
+      </elementAttributes>
+      <pos x="540" y="240"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Splitter</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Input Splitting</string>
+          <string>32</string>
+        </entry>
+        <entry>
+          <string>Output Splitting</string>
+          <string>4-27</string>
+        </entry>
+      </elementAttributes>
+      <pos x="540" y="420"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>BXCODE</string>
+        </entry>
+        <entry>
+          <string>Bits</string>
+          <int>24</int>
+        </entry>
+      </elementAttributes>
+      <pos x="620" y="420"/>
+    </visualElement>
+  </visualElements>
+  <wires>
+    <wire>
+      <p1 x="400" y="240"/>
+      <p2 x="520" y="240"/>
+    </wire>
+    <wire>
+      <p1 x="520" y="240"/>
+      <p2 x="540" y="240"/>
+    </wire>
+    <wire>
+      <p1 x="300" y="260"/>
+      <p2 x="340" y="260"/>
+    </wire>
+    <wire>
+      <p1 x="520" y="420"/>
+      <p2 x="540" y="420"/>
+    </wire>
+    <wire>
+      <p1 x="560" y="420"/>
+      <p2 x="620" y="420"/>
+    </wire>
+    <wire>
+      <p1 x="220" y="220"/>
+      <p2 x="340" y="220"/>
+    </wire>
+    <wire>
+      <p1 x="520" y="240"/>
+      <p2 x="520" y="420"/>
+    </wire>
+  </wires>
+  <measurementOrdering/>
+</circuit>

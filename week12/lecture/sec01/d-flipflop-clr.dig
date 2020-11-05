@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<circuit>
+  <version>1</version>
+  <attributes/>
+  <visualElements>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>D</string>
+        </entry>
+      </elementAttributes>
+      <pos x="140" y="140"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>CLK</string>
+        </entry>
+      </elementAttributes>
+      <pos x="140" y="300"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Not</elementName>
+      <elementAttributes/>
+      <pos x="220" y="200"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>Q</string>
+        </entry>
+      </elementAttributes>
+      <pos x="660" y="200"/>
+    </visualElement>
+    <visualElement>
+      <elementName>d-latch-clr.dig</elementName>
+      <elementAttributes/>
+      <pos x="300" y="200"/>
+    </visualElement>
+    <visualElement>
+      <elementName>d-latch-clr.dig</elementName>
+      <elementAttributes/>
+      <pos x="480" y="200"/>
+    </visualElement>
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry>
+          <string>Label</string>
+          <string>CLR</string>
+        </entry>
+      </elementAttributes>
+      <pos x="140" y="360"/>
+    </visualElement>
+  </visualElements>
+  <wires>
+    <wire>
+      <p1 x="280" y="240"/>
+      <p2 x="300" y="240"/>
+    </wire>
+    <wire>
+      <p1 x="460" y="240"/>
+      <p2 x="480" y="240"/>
+    </wire>
+    <wire>
+      <p1 x="440" y="200"/>
+      <p2 x="480" y="200"/>
+    </wire>
+    <wire>
+      <p1 x="180" y="200"/>
+      <p2 x="220" y="200"/>
+    </wire>
+    <wire>
+      <p1 x="260" y="200"/>
+      <p2 x="300" y="200"/>
+    </wire>
+    <wire>
+      <p1 x="360" y="200"/>
+      <p2 x="400" y="200"/>
+    </wire>
+    <wire>
+      <p1 x="540" y="200"/>
+      <p2 x="660" y="200"/>
+    </wire>
+    <wire>
+      <p1 x="140" y="360"/>
+      <p2 x="280" y="360"/>
+    </wire>
+    <wire>
+      <p1 x="280" y="360"/>
+      <p2 x="460" y="360"/>
+    </wire>
+    <wire>
+      <p1 x="140" y="300"/>
+      <p2 x="180" y="300"/>
+    </wire>
+    <wire>
+      <p1 x="180" y="300"/>
+      <p2 x="440" y="300"/>
+    </wire>
+    <wire>
+      <p1 x="140" y="140"/>
+      <p2 x="160" y="140"/>
+    </wire>
+    <wire>
+      <p1 x="160" y="220"/>
+      <p2 x="300" y="220"/>
+    </wire>
+    <wire>
+      <p1 x="400" y="220"/>
+      <p2 x="480" y="220"/>
+    </wire>
+    <wire>
+      <p1 x="160" y="140"/>
+      <p2 x="160" y="220"/>
+    </wire>
+    <wire>
+      <p1 x="400" y="200"/>
+      <p2 x="400" y="220"/>
+    </wire>
+    <wire>
+      <p1 x="180" y="200"/>
+      <p2 x="180" y="300"/>
+    </wire>
+    <wire>
+      <p1 x="440" y="200"/>
+      <p2 x="440" y="300"/>
+    </wire>
+    <wire>
+      <p1 x="280" y="240"/>
+      <p2 x="280" y="360"/>
+    </wire>
+    <wire>
+      <p1 x="460" y="240"/>
+      <p2 x="460" y="360"/>
+    </wire>
+  </wires>
+  <measurementOrdering/>
+</circuit>
