@@ -14,6 +14,10 @@
           <string>Bits</string>
           <int>4</int>
         </entry>
+        <entry>
+          <string>intFormat</string>
+          <intFormat>dec</intFormat>
+        </entry>
       </elementAttributes>
       <pos x="720" y="120"/>
     </visualElement>
@@ -67,6 +71,16 @@
       </elementAttributes>
       <pos x="120" y="460"/>
     </visualElement>
+    <visualElement>
+      <elementName>Probe</elementName>
+      <elementAttributes>
+        <entry>
+          <string>intFormat</string>
+          <intFormat>dec</intFormat>
+        </entry>
+      </elementAttributes>
+      <pos x="700" y="240"/>
+    </visualElement>
   </visualElements>
   <wires>
     <wire>
@@ -76,6 +90,10 @@
     <wire>
       <p1 x="560" y="240"/>
       <p2 x="640" y="240"/>
+    </wire>
+    <wire>
+      <p1 x="640" y="240"/>
+      <p2 x="700" y="240"/>
     </wire>
     <wire>
       <p1 x="120" y="400"/>
